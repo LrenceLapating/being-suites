@@ -4,11 +4,33 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Missing Supabase environment variables. Please check your .env file.'
-  );
+// Enhanced validation
+if (!supabaseUrl) {
+  console.error('VITE_SUPABASE_URL is not defined. Current value:', supabaseUrl);
+  throw new Error('VITE_SUPABASE_URL environment variable is required');
 }
+
+if (!supabaseAnonKey) {
+  console.error('VITE_SUPABASE_ANON_KEY is not defined. Current value:', supabaseAnonKey);
+  throw new Error('VITE_SUPABASE_ANON_KEY environment variable is required');
+}
+
+// Validate URL format
+try {
+  new URL(supabaseUrl);
+} catch (error) {
+  console.error('Invalid Supabase URL format:', supabaseUrl);
+  throw new Error(`Invalid VITE_SUPABASE_URL format: ${supabaseUrl}`);
+}
+
+// Validate URL is HTTPS and looks like a Supabase URL
+if (!supabaseUrl.startsWith('https://') || !supabaseUrl.includes('.supabase.co')) {
+  console.error('Supabase URL should be HTTPS and contain .supabase.co:', supabaseUrl);
+  throw new Error(`Invalid Supabase URL: ${supabaseUrl}`);
+}
+
+console.log('✅ Supabase configuration validated successfully');
+console.log('Supabase URL:', supabaseUrl);
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 

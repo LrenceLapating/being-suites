@@ -25,10 +25,15 @@ git push origin main
 2. Sign in with GitHub
 3. Click "New Project"
 4. Import your GitHub repository
-5. Configure environment variables:
-   - `VITE_SUPABASE_URL`: `https://kdluvyhsnohagnumkbwd.supabase.co`
-   - `VITE_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkbHV2eWhzbm9oYWdudW1rYndkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjIzNjUsImV4cCI6MjA3ODQzODM2NX0.ff9aMDp_NL0lAr3rEUnaO0ZfpBUj3_4ZV_AzgGGZnz0`
+5. **CRITICAL**: Configure environment variables in Vercel dashboard:
+   - Go to Settings > Environment Variables
+   - Add these **EXACT** variables:
+     - `VITE_SUPABASE_URL`: `https://kdluvyhsnohagnumkbwd.supabase.co`
+     - `VITE_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkbHV2eWhzbm9oYWdudW1rYndkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjIzNjUsImV4cCI6MjA3ODQzODM2NX0.ff9aMDp_NL0lAr3rEUnaO0ZfpBUj3_4ZV_AzgGGZnz0`
+     - `VITE_ADMIN_PASSWORD`: `admin123`
+   - **Important**: Make sure there are no extra spaces or characters
 6. Click "Deploy"
+7. **After deployment**: Check the live site for any environment variable errors
 
 #### 3. Custom Domain (Optional)
 - Add your custom domain in Vercel dashboard
@@ -87,12 +92,30 @@ After deployment, access admin panel at:
 
 ### 🆘 Troubleshooting
 
+**"Failed to execute 'fetch' on 'Window': Invalid value" Error:**
+- This means environment variables are not set correctly in production
+- Check Vercel dashboard > Settings > Environment Variables
+- Ensure all three variables are set exactly as shown above
+- Redeploy after adding variables
+
 **Build Fails:**
 - Check environment variables in Vercel
 - Verify Supabase connection
+- Check build logs for specific errors
 
 **Admin Login Issues:**
 - Confirm admin user exists in Supabase Auth
+- Check RLS policies
+- Verify environment variables are loaded (check browser console)
+
+**Database Errors:**
+- Monitor Supabase logs
+- Verify API key permissions
+
+**Environment Variables Not Loading:**
+- Variables must start with `VITE_` for Vite to include them
+- Check browser developer tools > Console for validation messages
+- Ensure no extra spaces in variable names or values
 - Check RLS policies
 
 **Database Errors:**

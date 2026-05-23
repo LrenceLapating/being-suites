@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Building2 } from 'lucide-react';
 import logo from '../assets/Being logo.png';
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -12,6 +12,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Room Rates', path: '/room-rates' },
+    { name: 'Book Now', path: '/booking' },
     { name: "Jury's Cafe", path: '/jurys-cafe' },
     { name: 'Contact Us', path: '/contact' },
     { name: 'Function Packages', path: '/function-packages' },
@@ -98,7 +99,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
           >
-            {children}
+            <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>

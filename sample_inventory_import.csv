@@ -1,0 +1,10 @@
+Item Name,Unit,Category,Reorder Level,Previous Balance,Total IN,Total OUT
+Rice,kg,Pantry-Baking,10,50,100,25
+Chicken Breast,kg,Frozen-Chicken,5,20,80,15
+Coca Cola,bottle,Drinks-Softdrinks,24,48,120,36
+Cooking Oil,L,Pantry-Condiments,3,10,25,8
+Ground Beef,kg,Frozen-Beef,8,15,60,22
+Orange Juice,L,Drinks-Juices,12,24,48,18
+All Purpose Flour,kg,Pantry-Baking,15,30,75,20
+Frozen Fries,pack,Frozen-Fries,10,25,50,15
+Mineral Water,bottle,Drinks-Water,50,100,200,75

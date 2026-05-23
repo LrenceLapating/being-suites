@@ -58,49 +58,60 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* 3D Background */}
+        {/* Background Image */}
         <img src={heroImg} alt="Being Suites" loading="eager" className="absolute inset-0 w-full h-full object-cover z-0" />
         
+        {/* Gradient Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 z-[1]" />
+        
         {/* Hero Content */}
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <motion.h1 
-            initial={false}
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-5xl md:text-7xl font-bold text-brandBlue-700 mb-6"
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="mb-8"
           >
-            Welcome to <span className="text-brandRed-700">Being Suites</span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="text-xl md:text-2xl text-brandBlue-700/80 mb-8"
-          >
-            Cozy Suites & Comfort in Davao City
-          </motion.p>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white mb-6 drop-shadow-2xl leading-tight">
+              Welcome to <span className="text-[#D42B2B]">Being Suites</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl lg:text-3xl text-white/95 mb-12 drop-shadow-lg font-light tracking-wide">
+              Cozy Suites & Comfort in Davao City
+            </p>
+          </motion.div>
           
           <motion.div 
-            initial={false}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Link
               to="/room-rates"
-              className="group inline-flex items-center px-8 py-4 bg-brandBlue-700 text-white font-semibold rounded-lg hover:bg-brandBlue-600 transition-all duration-300 transform hover:scale-105"
+              className="group inline-flex items-center justify-center px-10 py-4 bg-white text-[#1B4B9E] font-semibold text-lg rounded-xl hover:bg-[#1B4B9E] hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-xl min-w-[220px]"
             >
               View Room Rates
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             
             <Link
-              to="/contact#how-to-book"
-              className="group inline-flex items-center px-8 py-4 bg-transparent border-2 border-brandBlue-700 text-brandBlue-700 font-semibold rounded-lg hover:bg-brandBlue-700 hover:text-white transition-all duration-300 transform hover:scale-105"
+              to="/booking"
+              className="group inline-flex items-center justify-center px-10 py-4 bg-[#D42B2B] text-white font-semibold text-lg rounded-xl hover:bg-[#B91C1C] transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-xl min-w-[220px] relative overflow-hidden"
             >
-              Book Us
-              <Calendar className="ml-2 h-5 w-5" />
+              <span className="relative z-10 flex items-center">
+                Book Now
+                <Calendar className="ml-2 h-5 w-5" />
+              </span>
+              {/* Animated glow effect */}
+              <motion.div
+                className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20"
+                animate={{
+                  scale: [1, 1.5, 1],
+                  opacity: [0, 0.2, 0],
+                }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              />
             </Link>
           </motion.div>
         </div>
@@ -109,10 +120,14 @@ const Home: React.FC = () => {
         <motion.div 
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
         >
-          <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
+          <div className="w-6 h-10 border-2 border-white/80 rounded-full flex justify-center backdrop-blur-sm">
+            <motion.div 
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1 h-3 bg-white rounded-full mt-2"
+            />
           </div>
         </motion.div>
       </section>

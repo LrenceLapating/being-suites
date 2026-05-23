@@ -27,11 +27,6 @@ export const useSecurityMonitoring = () => {
       securityEvents.current = securityEvents.current.slice(-100);
     }
 
-    // Log to console in development
-    if (import.meta.env.DEV) {
-      console.warn('Security Event:', securityEvent);
-    }
-
     // In production, you might want to send this to a monitoring service
     if (import.meta.env.PROD) {
       // Example: Send to monitoring service
@@ -102,25 +97,12 @@ export const useSecurityMonitoring = () => {
       }
     };
 
-    // Monitor for console access (potential developer tools usage)
-    const originalConsole = console.log;
-    console.log = (...args) => {
-      if (import.meta.env.PROD) {
-        logSecurityEvent({
-          type: 'suspicious_activity',
-          details: { activity: 'console_access', args: args.slice(0, 2) }
-        });
-      }
-      originalConsole.apply(console, args);
-    };
-
     // Add event listeners
     document.addEventListener('submit', handleFormSubmit);
 
     return () => {
       clearInterval(formSubmissionTimer);
       document.removeEventListener('submit', handleFormSubmit);
-      console.log = originalConsole;
     };
   }, []);
 

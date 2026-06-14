@@ -95,7 +95,7 @@ const CafeItemsList: React.FC<CafeItemsListProps> = ({ items, onTransaction, onR
                 <td>
                   <InlineEditCell
                     value={item.reorder_level}
-                    onSave={(newValue) => handleEdit(item.id, 'reorder_level', parseInt(newValue))}
+                    onSave={(newValue) => handleEdit(item.id, 'reorder_level', parseInt(String(newValue)))}
                     type="number"
                   />
                 </td>

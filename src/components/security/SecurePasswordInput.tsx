@@ -20,7 +20,11 @@ const SecurePasswordInput: React.FC<SecurePasswordInputProps> = ({
   className = ""
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [strength, setStrength] = useState({ isValid: false, score: 0, feedback: [] });
+  const [strength, setStrength] = useState<{ isValid: boolean; score: number; feedback: string[] }>({
+    isValid: false,
+    score: 0,
+    feedback: [],
+  });
 
   useEffect(() => {
     if (value) {

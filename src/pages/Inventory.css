@@ -627,10 +627,7 @@ select.inline-edit-input option {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('../assets/Beiing background.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: linear-gradient(135deg, #1B4B9E 0%, #2563B8 100%);
   position: relative;
 }
 

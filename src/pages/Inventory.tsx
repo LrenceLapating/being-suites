@@ -24,7 +24,11 @@ const app = {
 const unitOptions = ['kg', 'pcs', 'L', 'pack', 'bottle', 'can'];
 
 // Three-level category structure
-const CATEGORY_STRUCTURE = {
+const CATEGORY_STRUCTURE: Record<string, {
+  icon: string;
+  name: string;
+  subcategories: Record<string, string>;
+}> = {
   'Pantry': {
     icon: '📦',
     name: 'Pantry Items',
@@ -913,7 +917,12 @@ const Inventory: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       // Prepare all operations first (validate everything before making any changes)
-      const operations = [];
+      const operations: Array<{
+        item: any;
+        itemId: any;
+        isUpdate: boolean;
+        transactions: any[];
+      }> = [];
       let successCount = 0;
       let updateCount = 0;
       let transactionCount = 0;
@@ -957,7 +966,7 @@ const Inventory: React.FC = () => {
             item,
             itemId,
             isUpdate,
-            transactions: []
+            transactions: [] as any[]
           };
           
           // Prepare transactions
@@ -1012,8 +1021,8 @@ const Inventory: React.FC = () => {
       }
       
       // Second pass: execute all operations (now that we know they're all valid)
-      const createdItems = [];
-      const createdTransactions = [];
+      const createdItems: any[] = [];
+      const createdTransactions: any[] = [];
       
       try {
         for (let index = 0; index < operations.length; index++) {
@@ -1097,7 +1106,7 @@ const Inventory: React.FC = () => {
         
         // If we get here, everything succeeded
         
-      } catch (executionError) {
+      } catch (executionError: any) {
         console.error('Import execution failed:', executionError);
         
         // Rollback: Delete any items and transactions that were created

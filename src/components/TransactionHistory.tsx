@@ -119,20 +119,24 @@ const TransactionHistory: React.FC = () => {
         const { data: cafeData, error: cafeError } = await cafeQuery;
         if (cafeError) throw cafeError;
         
-        cafeTransactions = (cafeData || []).map(tx => ({
-          id: tx.id,
-          item_id: tx.cafe_item_id,
-          item_name: tx.cafe_items?.item_name || 'Unknown Item',
-          item_unit: tx.cafe_items?.unit || 'pcs',
-          transaction_type: tx.transaction_type,
-          quantity: tx.quantity,
-          transaction_date: tx.transaction_date,
-          source_destination: tx.source_destination,
-          remarks: tx.remarks,
-          created_by: tx.user_id,
-          created_at: tx.created_at,
-          source: 'cafe' as const
-        }));
+        cafeTransactions = (cafeData || []).map((tx: any) => {
+          const cafeItem = Array.isArray(tx.cafe_items) ? tx.cafe_items[0] : tx.cafe_items;
+
+          return {
+            id: tx.id,
+            item_id: tx.cafe_item_id,
+            item_name: cafeItem?.item_name || 'Unknown Item',
+            item_unit: cafeItem?.unit || 'pcs',
+            transaction_type: tx.transaction_type,
+            quantity: tx.quantity,
+            transaction_date: tx.transaction_date,
+            source_destination: tx.source_destination,
+            remarks: tx.remarks,
+            created_by: tx.user_id,
+            created_at: tx.created_at,
+            source: 'cafe' as const
+          };
+        });
       }
 
       // Combine and sort all transactions
@@ -388,7 +392,7 @@ const TransactionHistory: React.FC = () => {
         const monthStartCreatedAt = itemMonthStart ? new Date(itemMonthStart.created_at) : null;
 
         // Create daily breakdown for the selected date range
-        const dailyData = {};
+        const dailyData: Record<string, { in: number; out: number }> = {};
         const currentDate = new Date(startDate);
         while (currentDate <= endDate) {
           const dateStr = currentDate.toISOString().split('T')[0];
@@ -472,7 +476,7 @@ const TransactionHistory: React.FC = () => {
       const dateRange = `${startFormatted}-${endFormatted}, ${year}`;
 
       // Create array of dates in the range
-      const dateArray = [];
+      const dateArray: Date[] = [];
       const currentDate = new Date(start);
       while (currentDate <= end) {
         dateArray.push(new Date(currentDate));
@@ -483,14 +487,14 @@ const TransactionHistory: React.FC = () => {
       const wb = XLSX.utils.book_new();
       
       // Build the data array matching the exact format specification
-      const data = [];
-      const categoryRows = []; // Track category row indices for styling
+      const data: Array<Array<string | number>> = [];
+      const categoryRows: number[] = []; // Track category row indices for styling
       
       // Row 1: Title
       data.push(['BEING SUITES STOCK ROOM INVENTORY']);
       
       // Row 2: Subtitle with ENCODE HERE
-      const row2 = ['STOCK ROOM INVENTORY ENDING ACTUAL COUNT'];
+      const row2: Array<string | number> = ['STOCK ROOM INVENTORY ENDING ACTUAL COUNT'];
       for (let i = 1; i < 10; i++) row2.push(''); // Empty cells
       row2[9] = 'ENCODE HERE'; // Position ENCODE HERE in column J (index 9)
       data.push(row2);
@@ -499,7 +503,7 @@ const TransactionHistory: React.FC = () => {
       data.push([dateRange]);
       
       // Row 4: Column group headers
-      const row4 = ['UNIT ITEMS NAME', '', 'Ending Inv.'];
+      const row4: Array<string | number> = ['UNIT ITEMS NAME', '', 'Ending Inv.'];
       
       // Add IN section header (spanning actual date range + 1 total)
       for (let i = 0; i < dateArray.length; i++) {
@@ -518,7 +522,7 @@ const TransactionHistory: React.FC = () => {
       data.push(row4);
       
       // Row 5: Sub-headers with actual dates
-      const row5 = ['', '', '30-Nov']; // Previous month ending
+      const row5: Array<string | number> = ['', '', '30-Nov']; // Previous month ending
       
       // Add actual day numbers for IN section
       dateArray.forEach(date => {
@@ -537,7 +541,7 @@ const TransactionHistory: React.FC = () => {
       data.push(row5);
       
       // Group items by category
-      const groupedItems = {};
+      const groupedItems: Record<string, any[]> = {};
       allItemsData.forEach(item => {
         const category = item.category || 'OTHERS';
         const mainCategory = category.split('-')[0] || 'OTHERS';
@@ -561,8 +565,8 @@ const TransactionHistory: React.FC = () => {
         data.push(categoryRow);
         
         // Add items in this category
-        groupedItems[category].forEach(item => {
-          const row = [];
+        groupedItems[category].forEach((item: any) => {
+          const row: Array<string | number> = [];
           row[0] = item.item_name; // Item name
           row[1] = item.unit; // Unit
           row[2] = Math.round(item.prev_balance || 0); // Previous month ending (30-Nov)
@@ -616,7 +620,7 @@ const TransactionHistory: React.FC = () => {
       
       // Add merges for category rows to make them fully visible
       categoryRows.forEach(rowIndex => {
-        ws['!merges'].push({
+        (ws['!merges'] ||= []).push({
           s: { r: rowIndex, c: 0 }, // Start at column A
           e: { r: rowIndex, c: 5 }  // End at column F
         });
@@ -994,14 +998,14 @@ const TransactionHistory: React.FC = () => {
       const wb = XLSX.utils.book_new();
       
       // Build the data array matching the exact format specification
-      const data = [];
-      const categoryRows = []; // Track category row indices for styling
+      const data: Array<Array<string | number>> = [];
+      const categoryRows: number[] = []; // Track category row indices for styling
       
       // Row 1: Title
       data.push(['BEING SUITES CAFE INVENTORY']);
       
       // Row 2: Subtitle with ENCODE HERE
-      const row2 = ['CAFE INVENTORY ENDING ACTUAL COUNT'];
+      const row2: Array<string | number> = ['CAFE INVENTORY ENDING ACTUAL COUNT'];
       for (let i = 1; i < 10; i++) row2.push(''); // Empty cells
       row2[9] = 'ENCODE HERE'; // Position ENCODE HERE in column J (index 9)
       data.push(row2);
@@ -1010,7 +1014,7 @@ const TransactionHistory: React.FC = () => {
       data.push([dateRange]);
       
       // Row 4: Column group headers
-      const row4 = ['UNIT ITEMS NAME', '', 'Ending Inv.'];
+      const row4: Array<string | number> = ['UNIT ITEMS NAME', '', 'Ending Inv.'];
       
       // Add IN section header (spanning 15 days + 1 total)
       for (let i = 1; i <= 15; i++) {
@@ -1029,7 +1033,7 @@ const TransactionHistory: React.FC = () => {
       data.push(row4);
       
       // Row 5: Sub-headers
-      const row5 = ['', '', '30-Nov']; // Previous month ending
+      const row5: Array<string | number> = ['', '', '30-Nov']; // Previous month ending
       
       // Add numbered columns 1-15 for IN
       for (let i = 1; i <= 15; i++) {
@@ -1048,7 +1052,7 @@ const TransactionHistory: React.FC = () => {
       data.push(row5);
       
       // Group items by category
-      const groupedItems = {};
+      const groupedItems: Record<string, any[]> = {};
       allCafeItemsData.forEach(item => {
         const category = item.category || 'CAFE ITEMS';
         const mainCategory = category.split('-')[0] || 'CAFE ITEMS';
@@ -1071,8 +1075,8 @@ const TransactionHistory: React.FC = () => {
         data.push(categoryRow);
         
         // Add items in this category
-        groupedItems[category].forEach(item => {
-          const row = [];
+        groupedItems[category].forEach((item: any) => {
+          const row: Array<string | number> = [];
           row[0] = item.item_name; // Item name
           row[1] = item.unit; // Unit
           row[2] = Math.round(item.prev_balance || 0); // Previous month ending (30-Nov)
@@ -1114,7 +1118,7 @@ const TransactionHistory: React.FC = () => {
       
       // Add merges for category rows
       categoryRows.forEach(rowIndex => {
-        ws['!merges'].push({
+        (ws['!merges'] ||= []).push({
           s: { r: rowIndex, c: 0 },
           e: { r: rowIndex, c: 5 }
         });

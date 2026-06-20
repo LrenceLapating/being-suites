@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import BookingHistory from './pages/BookingHistory';
 import Inventory from './pages/Inventory';
 import './App.css';
+import './pages/GuestPages.css';
 
 function App() {
   return (

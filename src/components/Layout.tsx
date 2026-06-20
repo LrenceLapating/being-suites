@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Building2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import logo from '../assets/Being logo.png';
 
 const Layout: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navItems = [
     { name: 'Home', path: '/' },
@@ -20,66 +28,34 @@ const Layout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-brandBlue-100">
+      <nav className={`premium-nav fixed top-0 w-full z-50 ${isScrolled ? 'premium-nav--scrolled' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3">
-              <img src={logo} alt="Being Suites" className="h-8 w-8 rounded-sm" />
-              <span className="text-2xl font-bold text-brandBlue-700 font-title">Being Suites</span>
+            <Link to="/" className="flex items-center space-x-3" aria-label="Being Suites home">
+              <img src={logo} alt="" className="h-9 w-9 rounded-full object-cover" />
+              <span className="premium-nav__brand font-title">Being Suites</span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center gap-7">
               {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-300 rounded-md ${
-                    location.pathname === item.path
-                      ? 'text-brandRed-700 border-b-2 border-brandRed-700'
-                      : 'text-brandBlue-700 hover:text-brandBlue-600 hover:bg-brandBlue-50 hover:underline underline-offset-8 decoration-brandRed-700'
-                  }`}
-                >
+                <Link key={item.name} to={item.path} className={`premium-nav__link ${location.pathname === item.path ? 'premium-nav__link--active' : ''}`}>
                   {item.name}
                 </Link>
               ))}
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-brandBlue-700 hover:text-brandBlue-600 p-2"
-              >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
+            <button className="premium-nav__menu md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white/95 backdrop-blur-lg"
-            >
-              <div className="px-2 pt-2 pb-3 space-y-1">
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-[#fbf9f4]/95 backdrop-blur-xl border-t border-black/5 overflow-hidden">
+              <div className="px-4 py-4 space-y-1">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`block px-3 py-2 text-base font-medium transition-colors duration-300 ${
-                      location.pathname === item.path
-                        ? 'text-brandRed-700 bg-brandBlue-50'
-                        : 'text-brandBlue-700 hover:text-brandBlue-600 hover:bg-brandBlue-50'
-                    }`}
-                  >
+                  <Link key={item.name} to={item.path} onClick={() => setIsMenuOpen(false)} className={`block px-3 py-3 text-sm font-medium ${location.pathname === item.path ? 'text-[#a1773e]' : 'text-[#173c38]'}`}>
                     {item.name}
                   </Link>
                 ))}
@@ -89,48 +65,35 @@ const Layout: React.FC = () => {
         </AnimatePresence>
       </nav>
 
-      {/* Main Content */}
       <main className="pt-16">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
-          >
+          <motion.div key={location.pathname} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}>
             <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-brandBlue-50 backdrop-blur-lg border-t border-brandBlue-100 mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <footer className="premium-footer">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
-              <h3 className="text-xl font-bold text-brandBlue-700 mb-4">Being Suites</h3>
-              <p className="text-brandBlue-700/80">
-                Cozy Suites & Comfort in Davao City. Experience world-class hospitality and modern amenities.
-              </p>
+              <h3>Being Suites</h3>
+              <p>Cozy Suites &amp; Comfort in Davao City. Experience world-class hospitality and modern amenities.</p>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-brandBlue-700 mb-4">Contact Info</h3>
-              <p className="text-brandBlue-700/80">📍 3rd St Lot 16 Blk 20 Guadalupe Village Lanang</p>
-              <p className="text-brandBlue-700/80">📞 (082) 308-2595</p>
-              <p className="text-brandBlue-700/80">📱 0933-858-4013</p>
-              <p className="text-brandBlue-700/80">✉️ chbeing@gmail.com</p>
+              <h3>Contact Info</h3>
+              <p className="premium-footer__line"><MapPin size={15} /> 3rd St Lot 16 Blk 20 Guadalupe Village Lanang</p>
+              <p className="premium-footer__line"><Phone size={15} /> (082) 308-2595 · 0933-858-4013</p>
+              <p className="premium-footer__line"><Mail size={15} /> chbeing@gmail.com</p>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-brandBlue-700 mb-4">Hours</h3>
-              <p className="text-brandBlue-700/80">Front Desk</p>
-              <p className="text-brandBlue-700/80">Check-in: 2:00 PM</p>
-              <p className="text-brandBlue-700/80">Check-out: 12:00 PM</p>
+              <h3>Hours</h3>
+              <p>Front Desk</p>
+              <p>Check-in: 2:00 PM</p>
+              <p>Check-out: 12:00 PM</p>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-brandBlue-100 text-center text-brandBlue-700/70">
-            <p>&copy; 2024 Being Suites. All rights reserved.</p>
-          </div>
+          <div className="premium-footer__legal"><p>&copy; 2024 Being Suites. All rights reserved.</p></div>
         </div>
       </footer>
     </div>

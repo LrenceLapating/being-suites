@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, ExternalLink } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { ArrowRight, CalendarDays, MapPin, Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Contact: React.FC = () => {
   const location = useLocation();
@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen premium-guest-page page-contact">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -58,31 +58,19 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="bg-white rounded-xl p-8 border border-brandBlue-100"
           >
-            <h2 className="text-3xl font-bold text-brandBlue-700 mb-6">How to Book</h2>
-            <p className="text-brandBlue-700/80 mb-6">
-              Book your stay through our preferred platforms and direct channels. This page provides all the links and contact details you need.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-3">
-                <ExternalLink className="h-5 w-5 text-brandRed-700 mt-1" />
-                <div>
-                  <h4 className="text-brandBlue-700 font-semibold">Booking.com Listing</h4>
-                  <p className="text-brandBlue-700/80">
-                    Reserve via Booking.com:
-                    <a href="https://www.booking.com/hotel/ph/be-ing-resort-house.html?aid=304142&label=gen173nr-10CAEoggI46AdIM1gEaLQBiAEBmAEzuAEXyAEM2AED6AEB-AEBiAIBqAIBuAKT3LDJBsACAdICJGMwYjdiMTkwLTBjZjctNGFkOC1hOTg5LTZhYzQ0ZmM3MDg3ZNgCAeACAQ&ucfs=1&arphpl=1" target="_blank" rel="noreferrer" className="ml-1 text-brandRed-700 hover:underline">Being Suites on Booking.com</a>
-                  </p>
-                </div>
+            <div className="contact-booking-grid">
+              <div className="contact-booking-intro">
+                <span className="contact-booking-icon"><CalendarDays size={24} /></span>
+                <p className="eyebrow">Direct reservations</p>
+                <h2 className="text-3xl font-bold text-brandBlue-700 mb-6">How to Book</h2>
+                <p className="text-brandBlue-700/80 mb-6">
+                  Choose your room, select your dates, and complete your reservation directly with Being Suites.
+                </p>
+                <Link to="/booking" className="contact-booking-button">
+                  Book your stay <ArrowRight size={17} />
+                </Link>
               </div>
-              <div className="flex items-start space-x-3">
-                <ExternalLink className="h-5 w-5 text-brandRed-700 mt-1" />
-                <div>
-                  <h4 className="text-brandBlue-700 font-semibold">Agoda Listing</h4>
-                  <p className="text-brandBlue-700/80">
-                    Reserve via Agoda:
-                    <a href="https://www.agoda.com/be-ing-suites-davao/hotel/davao-city-ph.html?cid=1844104&ds=iX5Ry1oG1Sy%2FjOG%2B" target="_blank" rel="noreferrer" className="ml-1 text-brandRed-700 hover:underline">Being Suites on Agoda</a>
-                  </p>
-                </div>
-              </div>
+              <div className="contact-booking-details space-y-6">
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-brandRed-700 mt-1" />
                 <div>
@@ -98,16 +86,19 @@ const Contact: React.FC = () => {
                   <p className="text-brandBlue-700/80">3rd St Lot 16 Blk 20 Guadalupe Village Lanang</p>
                 </div>
               </div>
-            </div>
-            <div className="mt-8">
-              <h3 className="text-xl font-bold text-brandBlue-700 mb-4">Social Media</h3>
-              <p className="text-brandBlue-700/80 mb-4">You can message us on our social media for more inquiries like reservation and check-in.</p>
-              <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <a key={index} href={social.url} className="text-brandBlue-700 hover:text-brandRed-700" aria-label={social.name}>
-                    <social.icon className="h-6 w-6" />
-                  </a>
-                ))}
+                <div className="contact-social-row">
+                  <div>
+                    <h3 className="text-xl font-bold text-brandBlue-700 mb-1">Social Media</h3>
+                    <p className="text-brandBlue-700/80">Message us for reservation and check-in inquiries.</p>
+                  </div>
+                  <div className="flex space-x-3">
+                    {socialLinks.map((social, index) => (
+                      <a key={index} href={social.url} className="contact-social-link" aria-label={social.name}>
+                        <social.icon className="h-5 w-5" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

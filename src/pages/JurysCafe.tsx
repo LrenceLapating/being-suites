@@ -131,7 +131,7 @@ const JurysCafe: React.FC = () => {
   const cafeImages = [cafe1, cafe2];
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen premium-guest-page page-cafe">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -234,7 +234,7 @@ const JurysCafe: React.FC = () => {
           </motion.h2>
           
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="menu-category-filter flex flex-wrap justify-center gap-4 mb-12">
             {menuCategories.map((category) => {
               const IconComponent = category.icon;
               return (

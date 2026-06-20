@@ -47,7 +47,7 @@ const Booking: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F7FA] to-white">
+    <div className="min-h-screen premium-booking">
       <AnimatePresence mode="wait">
         {step === 'room' && (
           <motion.div

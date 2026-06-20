@@ -98,7 +98,7 @@ const RoomRates: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen premium-guest-page page-rooms">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">

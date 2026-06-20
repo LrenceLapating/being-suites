@@ -120,9 +120,34 @@ html, body, #root {
 
 body {
   margin: 0;
-  background: linear-gradient(to bottom right, #ffffff, #eff6ff);
+  background: #fbf9f4;
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
 }
+
+::selection { background: #c9a66b; color: #132f2c; }
+
+.premium-nav {
+  color: #173c38;
+  background: rgba(251, 249, 244, .82);
+  border-bottom: 1px solid rgba(23, 60, 56, .08);
+  backdrop-filter: blur(16px) saturate(1.15);
+  transition: background .4s ease, box-shadow .4s ease;
+}
+
+.premium-nav--scrolled { background: rgba(251, 249, 244, .96); box-shadow: 0 8px 35px rgba(24, 42, 39, .07); }
+.premium-nav__brand { color: #173c38; font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; }
+.premium-nav__link { position: relative; padding: 23px 0 20px; color: #38504d; font-size: .67rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: color .3s; }
+.premium-nav__link::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 16px; height: 1px; background: #ad8448; transition: right .35s cubic-bezier(.16,1,.3,1); }
+.premium-nav__link:hover, .premium-nav__link--active { color: #a1773e; }
+.premium-nav__link:hover::after, .premium-nav__link--active::after { right: 0; }
+.premium-nav__menu { color: #173c38; }
+
+.premium-footer { margin-top: 0; padding-block: 64px 28px; color: rgba(255,255,255,.65); background: #102c29; border-top: 1px solid rgba(255,255,255,.08); }
+.premium-footer h3 { margin: 0 0 18px; color: #f5efe4; font-size: 1.2rem; font-weight: 500; }
+.premium-footer p { margin: 0 0 8px; font-size: .84rem; line-height: 1.7; }
+.premium-footer__line { display: flex; align-items: flex-start; gap: 9px; }
+.premium-footer__line svg { flex: 0 0 auto; margin-top: 5px; color: #c9a66b; }
+.premium-footer__legal { margin-top: 38px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); text-align: center; color: rgba(255,255,255,.42); }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;

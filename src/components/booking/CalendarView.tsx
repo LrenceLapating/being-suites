@@ -191,7 +191,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ roomType, onSelectDate, onB
           <h2 className="text-4xl font-serif font-bold bg-gradient-to-r from-[#1B4B9E] to-[#2563B8] bg-clip-text text-transparent mb-3">
             Select Your Dates
           </h2>
-          <div className="inline-block px-6 py-2 bg-gradient-to-r from-[#1B4B9E]/10 to-[#2563B8]/10 rounded-full border border-[#1B4B9E]/20">
+          <div className="booking-room-badge inline-block px-6 py-2 bg-gradient-to-r from-[#1B4B9E]/10 to-[#2563B8]/10 rounded-full border border-[#1B4B9E]/20">
             <p className="text-[#1B4B9E] font-semibold">{roomNames[roomType]}</p>
           </div>
           <p className="text-sm text-gray-500 mt-3">
@@ -264,7 +264,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ roomType, onSelectDate, onB
                   <ChevronLeft size={24} strokeWidth={3} />
                 </motion.button>
 
-                <h3 className="text-2xl font-serif font-bold text-white">{monthName}</h3>
+                <h3 className="booking-calendar-month text-2xl font-serif font-bold text-white">{monthName}</h3>
 
                 <motion.button
                   whileHover={{ scale: 1.1, x: 2 }}

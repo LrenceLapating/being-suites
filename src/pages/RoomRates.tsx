@@ -173,10 +173,10 @@ const RoomRates: React.FC = () => {
                     </ul>
                   </div>
                   <Link
-                    to="/contact#how-to-book"
+                    to="/booking#booking-engine"
                     className="w-full inline-flex justify-center bg-brandBlue-700 text-white font-semibold py-3 rounded-lg hover:bg-brandBlue-600 transition-colors"
                   >
-                    Reserve Now
+                    Book Now
                   </Link>
                 </motion.div>
               </div>
@@ -255,7 +255,7 @@ const RoomRates: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="text-xl text-white mb-8"
           >
-            Contact our reservations team to secure your preferred room and enjoy exclusive benefits.
+            Check live availability and reserve directly through our official booking page.
           </motion.p>
           <motion.div
             initial={false}
@@ -263,10 +263,10 @@ const RoomRates: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <Link
-              to="/contact#how-to-book"
+              to="/booking#booking-engine"
               className="inline-flex items-center px-8 py-4 bg-white text-brandBlue-700 font-semibold rounded-lg hover:bg-brandBlue-50 transition-all duration-300 transform hover:scale-105"
             >
-              Make Reservation
+              Book Now
             </Link>
           </motion.div>
         </div>

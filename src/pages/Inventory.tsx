@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { useToast } from '../hooks/useToast';
 import { ToastContainer } from '../components/Toast';
@@ -87,7 +86,6 @@ let itemsPage = 1;
 let allCategories: string[] = [];
 
 const Inventory: React.FC = () => {
-  const navigate = useNavigate();
   const { toasts, removeToast, success, error } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState('login');
@@ -2305,20 +2303,6 @@ const Inventory: React.FC = () => {
           </div>
           
           <nav className="sidebar-nav">
-            <a 
-              href="#" 
-              onClick={(e) => { e.preventDefault(); navigate('/admin'); }} 
-              className="back-to-admin"
-              style={{ 
-                backgroundColor: '#3B82F6', 
-                color: 'white', 
-                marginBottom: '8px',
-                borderRadius: '6px',
-                fontWeight: '500'
-              }}
-            >
-              <span>← Back to Admin</span>
-            </a>
             <a 
               href="#" 
               onClick={(e) => { e.preventDefault(); showDashboard(); }} 

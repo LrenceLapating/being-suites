@@ -66,7 +66,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
             Admin Access
           </h1>
           <p className="text-[#6B7280]">
-            Enter password to access booking management
+            Enter password to access inventory management
           </p>
         </div>
 
@@ -155,7 +155,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
                 Signing In...
               </span>
             ) : (
-              'Access Admin Panel'
+              'Access Inventory Panel'
             )}
           </motion.button>
         </form>

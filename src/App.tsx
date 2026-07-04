@@ -8,8 +8,6 @@ import JurysCafe from './pages/JurysCafe';
 import Contact from './pages/Contact';
 import FunctionPackages from './pages/FunctionPackages';
 import Booking from './pages/Booking';
-import Admin from './pages/Admin';
-import BookingHistory from './pages/BookingHistory';
 import Inventory from './pages/Inventory';
 import './App.css';
 import './pages/GuestPages.css';
@@ -30,8 +28,7 @@ function App() {
         </Route>
 
         {/* Admin routes without Layout (standalone pages) */}
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/booking-history" element={<BookingHistory />} />
+        <Route path="/admin" element={<Inventory />} />
         <Route path="/inventory" element={<Inventory />} />
       </Routes>
     </Router>

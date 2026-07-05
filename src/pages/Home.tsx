@@ -203,7 +203,7 @@ const Home: React.FC = () => {
           className="feature-row"
         >
           {[
-            { icon: Star, title: '5-Star Comfort', desc: 'Premium accommodations and modern amenities.' },
+            { icon: Star, title: '3-Star Comfort', desc: 'Premium accommodations and modern amenities.' },
             { icon: Users, title: 'Expert Staff', desc: 'A dedicated team for a memorable stay.' },
             { icon: Calendar, title: 'Flexible Booking', desc: 'Simple reservations and flexible cancellation.' },
           ].map(({ icon: Icon, title, desc }) => (

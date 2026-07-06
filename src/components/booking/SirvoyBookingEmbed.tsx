@@ -5,7 +5,21 @@ const SIRVOY_SCRIPT_SRC = 'https://secured.sirvoy.com/widget/sirvoy.js';
 
 type EmbedStatus = 'loading' | 'ready' | 'error';
 
-const SirvoyBookingEmbed: React.FC = () => {
+interface SirvoyBookingEmbedProps {
+  widget?: 'review';
+  loadingTitle?: string;
+  fallbackText?: string;
+  errorTitle?: string;
+  errorText?: string;
+}
+
+const SirvoyBookingEmbed: React.FC<SirvoyBookingEmbedProps> = ({
+  widget,
+  loadingTitle = 'Loading secure booking engine...',
+  fallbackText = 'If the form does not appear, paste the latest Sirvoy embed code inside',
+  errorTitle = 'The booking engine could not load.',
+  errorText = 'Please refresh the page or contact Being Suites for reservation assistance.',
+}) => {
   const embedRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<EmbedStatus>('loading');
 
@@ -19,6 +33,9 @@ const SirvoyBookingEmbed: React.FC = () => {
     const script = document.createElement('script');
     script.async = true;
     script.dataset.formId = SIRVOY_FORM_ID;
+    if (widget) {
+      script.dataset.widget = widget;
+    }
     script.src = SIRVOY_SCRIPT_SRC;
     script.onload = () => setStatus('ready');
     script.onerror = () => setStatus('error');
@@ -38,9 +55,9 @@ const SirvoyBookingEmbed: React.FC = () => {
 
       {status === 'loading' && (
         <div className="sirvoy-booking-embed__fallback">
-          <p className="font-semibold text-[#173c38]">Loading secure booking engine...</p>
+          <p className="font-semibold text-[#173c38]">{loadingTitle}</p>
           <p>
-            If the form does not appear, paste the latest Sirvoy embed code inside
+            {fallbackText}
             {' '}
             <code>SirvoyBookingEmbed</code>.
           </p>
@@ -49,8 +66,8 @@ const SirvoyBookingEmbed: React.FC = () => {
 
       {status === 'error' && (
         <div className="sirvoy-booking-embed__fallback sirvoy-booking-embed__fallback--error">
-          <p className="font-semibold text-[#173c38]">The booking engine could not load.</p>
-          <p>Please refresh the page or contact Being Suites for reservation assistance.</p>
+          <p className="font-semibold text-[#173c38]">{errorTitle}</p>
+          <p>{errorText}</p>
         </div>
       )}
 

@@ -8,6 +8,7 @@ import {
   LockKeyhole,
   MessageCircle,
   PawPrint,
+  Search,
   ShieldCheck,
   Sparkles,
   Users,
@@ -103,6 +104,29 @@ const Booking: React.FC = () => {
               </span>
             </div>
             <SirvoyBookingEmbed />
+          </div>
+
+          <div className="booking-engine-card mt-6">
+            <div className="booking-engine-card__header">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#a1773e]">Guest portal</p>
+                <h3 className="mt-2 text-2xl">Find your reservation</h3>
+              </div>
+              <span className="booking-engine-card__badge">
+                <Search size={16} />
+                Sirvoy
+              </span>
+            </div>
+            <p className="mb-6 leading-8 text-[#626c68]">
+              Already booked? Search your reservation details through the official Sirvoy guest portal.
+            </p>
+            <SirvoyBookingEmbed
+              widget="review"
+              loadingTitle="Loading guest portal..."
+              fallbackText="If the guest portal does not appear, paste the latest Sirvoy review widget code inside"
+              errorTitle="The guest portal could not load."
+              errorText="Please refresh the page or contact Being Suites for reservation assistance."
+            />
           </div>
         </div>
       </section>

@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { RoomType } from '../../pages/Booking';
 import logoUrl from '../../assets/Being logo.png';
-import deluxeImg from '../../assets/deluxe room-1.png';
-import standardImg from '../../assets/standard room-1.png';
-import twinImg from '../../assets/twin bed room-1.png';
+import deluxeImg from '../../assets/Deluxe room/deluxe room front view.png';
+import standardImg from '../../assets/Standard room/standard room front view.png';
+import twinImg from '../../assets/Standard Twin Bed/standard twin front view.png';
 
 interface RoomSelectionProps {
   onSelectRoom: (roomType: RoomType) => void;

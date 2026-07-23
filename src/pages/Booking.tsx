@@ -15,7 +15,7 @@ import {
   Wifi,
 } from 'lucide-react';
 import SirvoyBookingEmbed from '../components/booking/SirvoyBookingEmbed';
-import heroImage from '../assets/deluxe room-1.png';
+import heroImage from '../assets/Deluxe room/deluxe room front view.png';
 
 export type RoomType = 'deluxe' | 'regular' | 'suite';
 

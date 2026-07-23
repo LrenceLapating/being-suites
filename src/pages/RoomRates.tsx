@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Wifi, Coffee, Tv, AirVent, Car, Check, ChevronLeft, ChevronRight, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import standardRoom1 from '../assets/standard room-1.png';
-import standardRoom2 from '../assets/standard room-2.png';
-import standardRoom3 from '../assets/standard room-3.png';
-import standardRoom4 from '../assets/standard room-4.png';
-import deluxeRoom1 from '../assets/deluxe room-1.png';
-import deluxeRoom2 from '../assets/deluxe room-2.png';
-import deluxeRoom3 from '../assets/deluxe room-3.png';
-import twinRoom1 from '../assets/twin bed room-1.png';
-import twinRoom2 from '../assets/twin bed room-2.png';
-import twinRoom3 from '../assets/twin bed room-3.png';
-import twinRoom4 from '../assets/twin bed room-4.png';
+import standardRoom1 from '../assets/Standard room/standard room front view.png';
+import standardRoom2 from '../assets/Standard room/standard room back view.png';
+import standardRoom3 from '../assets/Standard room/standard room-2.png';
+import standardRoom4 from '../assets/Standard room/standard room-3.png';
+import deluxeRoom1 from '../assets/Deluxe room/deluxe room front view.png';
+import deluxeRoom2 from '../assets/Deluxe room/deluxe room view.png';
+import deluxeRoom3 from '../assets/Deluxe room/Deluxe mirror side.png';
+import deluxeRoom4 from '../assets/Deluxe room/Deluxe with own sink and ref.png';
+import deluxeRoom5 from '../assets/Deluxe room/deluxe room-2.png';
+import twinRoom1 from '../assets/Standard Twin Bed/standard twin front view.png';
+import twinRoom2 from '../assets/Standard Twin Bed/standard twin back view.png';
+import twinRoom3 from '../assets/Standard Twin Bed/twin bed room-2.png';
 
 const RoomRates: React.FC = () => {
   const ImageCarousel: React.FC<{ images: string[] }> = ({ images }) => {
@@ -55,7 +56,7 @@ const RoomRates: React.FC = () => {
       id: 2,
       name: 'Deluxe Bedroom',
       price: '₱2,825.00',
-      images: [deluxeRoom1, deluxeRoom2, deluxeRoom3],
+      images: [deluxeRoom1, deluxeRoom2, deluxeRoom3, deluxeRoom4, deluxeRoom5],
       details: { size: '35 sqm', capacity: '2 Adults', bed: '1 King Bed' },
       amenities: [
         'Free WiFi',
@@ -73,7 +74,7 @@ const RoomRates: React.FC = () => {
       id: 3,
       name: 'Standard Twin Bed',
       price: '₱2,625.00',
-      images: [twinRoom1, twinRoom2, twinRoom3, twinRoom4],
+      images: [twinRoom1, twinRoom2, twinRoom3],
       details: { size: '30 sqm', capacity: '2 Adults', bed: '2 Twin Beds'},
       amenities: [
         'Free WiFi',
